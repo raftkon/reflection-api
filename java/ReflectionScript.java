@@ -8,33 +8,35 @@ import java.util.List;
  */
 public class ReflectionScript {
 
-    public static Class<?> reflectionType(String typename) throws ClassNotFoundException {
-        Class<?> c = Class.forName(typename);
-        return c;
+    public static Class<?> getReflectionType(String typename) throws ClassNotFoundException {
+        return Class.forName(typename);
     }
 
     // Exer 1a
     public static Field[] declaredFields(Class<?> c) {
-        Field[] fields = c.getDeclaredFields();
-        System.out.println("The " + c + " has " + fields.length + " declared fields.");
-        return fields;
+        // System.out.println("The " + c + " has " + fields.length + " declared
+        // fields.");
+        return c.getDeclaredFields();
     }
 
     // Exer 1b
-    public static void allFields(Class<?> c) {
-        Field[] fields = c.getDeclaredFields();
-        System.out.println("The " + c + " has " + getAllFields(c).size() + " fields in total.");
+    public static List<Field> allFields(Class<?> c) {
+        // System.out.println("The " + c + " has " + getAllFields(c).size() + " fields
+        // in total.");
+        return getAllFields(c);
     }
 
     // Exer 2a
-    public static void declaredMethods(Class<?> c) {
-        Method[] methods = c.getDeclaredMethods();
-        System.out.println("The " + c + " has " + methods.length + " methods.");
+    public static Method[] declaredMethods(Class<?> c) {
+        return c.getDeclaredMethods();
+        // System.out.println("The " + c + " has " + methods.length + " methods.");
     }
 
     // Exer 2b
-    public static void allMethods(Class<?> c) {
-        System.out.println("The " + c + " has " + gelAllMethodsLength(c) + " methods in total.");
+    public static List<Method> allMethods(Class<?> c) {
+        return getAllMethods(c);
+        // System.out.println("The " + c + " has " + getAllMethodsLength(c) + " methods
+        // in total.");
 
     }
 
@@ -55,13 +57,16 @@ public class ReflectionScript {
         return fields;
     }
 
-    public static int gelAllMethodsLength(Class<?> c) {
-        int result = 0;
+    public static List<Method> getAllMethods(Class<?> c) {
+        List<Method> methods = new ArrayList<>();
         while (c != null) {
-            result += c.getDeclaredMethods().length;
+            Method[] f = c.getDeclaredMethods();
+            for (Method method : f) {
+                methods.add(method);
+            }
             c = c.getSuperclass();
         }
-        return result;
+        return methods;
     }
 
     public static int getAllSuperClass(Class<?> c) {

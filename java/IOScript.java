@@ -17,7 +17,6 @@ public class IOScript {
             String str = br.readLine();
 
             while (str != null) {
-                System.out.println(str);
                 strArr.add(str);
                 str = br.readLine();
             }
